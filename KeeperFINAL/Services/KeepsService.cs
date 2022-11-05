@@ -23,7 +23,12 @@ public class KeepsService
 
   internal Keep GetKeepById(int keepId)
   {
-    return _kr.GetKeepById(keepId);
+    var keep = _kr.GetKeepById(keepId);
+    if (keep == null)
+    {
+      throw new Exception("Bad ID.");
+    }
+    return keep;
   }
 
   internal Keep EditKeep(Keep keepData, string accountId)
@@ -44,7 +49,7 @@ public class KeepsService
 
   internal void DeleteKeep(int keepId, string userId)
   {
-    Keep keep = GetKeepById(keepId);
+    var keep = GetKeepById(keepId);
     if (keep.CreatorId != userId)
     {
       throw new Exception("Bad ID.");

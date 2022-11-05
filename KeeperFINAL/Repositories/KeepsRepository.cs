@@ -73,11 +73,11 @@ public class KeepsRepository : BaseRepository
   {
     var sql = @"
       DELETE FROM keeps WHERE id = @keepId
-      ; ";
+      ;";
     var rows = _db.Execute(sql, new { keepId });
     if (rows != 1)
     { throw new Exception("Bad data."); }
-    return;
+   
 
   }
 
@@ -89,7 +89,9 @@ public class KeepsRepository : BaseRepository
     a.*
     FROM keeps k
     JOIN accounts a ON a.id = k.creatorId
+    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
     WHERE k.id = @keepId
+    GROUP BY k.id
     ;";
     return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
     {
