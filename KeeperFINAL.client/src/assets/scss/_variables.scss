@@ -1,6 +1,5 @@
 $themes: (
-  default: (
-    "body-bg": #e5e5e5,
+  default: ("body-bg": #e5e5e5,
     "primary": #3ba5dc,
     "secondary": #8392ab,
     "success": #00f867,
@@ -10,9 +9,16 @@ $themes: (
     "light": #e9ecef,
     "dark": #111927,
     "grey": #cbcbcb,
+    "warm1":#FEF6F0,
+    "warm2":#F2E1D9,
+    "warm3":#E9D8D6,
+    "warm4":#443331,
+    "cool1":#FAF4FC,
+    "cool2":#DDD5E0,
+    "cool3":#C5BAE0,
+    "cool4":#2D2D2D,
   ),
-  dark: (
-    "body-bg": #090f18,
+  dark: ("body-bg": #090f18,
     "primary": #89e5b0,
     "secondary": #fff9a4,
     "success": #00f867,
@@ -22,6 +28,14 @@ $themes: (
     "light": #ebeef1,
     "dark": #090f18,
     "grey": #cbcbcb,
+    "warm1":#FEF6F0,
+    "warm2":#F2E1D9,
+    "warm3":#E9D8D6,
+    "warm4":#443331,
+    "cool1":#FAF4FC,
+    "cool2":#DDD5E0,
+    "cool3":#C5BAE0,
+    "cool4":#2D2D2D,
   ),
 );
 

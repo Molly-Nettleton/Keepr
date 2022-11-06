@@ -8,11 +8,12 @@ body{
   overscroll-behavior: none;
 }
 
+
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--body-bg);
+  background-color: #FEF6F0;
 }
 
 main {
@@ -39,4 +40,69 @@ select {
 form:invalid button[type="submit"] {
   filter: grayscale(1);
   pointer-events: none;
+}
+
+
+
+.hoverable {
+  cursor: pointer;
+}
+
+.hover {
+  transition: all 0.5s ease;
+}
+
+.hover:hover {
+  transform: scale(1.04);
+  filter: brightness(110%);
+  filter: contrast(110%);
+  transition: 0.5s ease;
+}
+
+.gradient-box {
+  background: #79bd9a linear-gradient(22deg, #cff09e, #a8dba8, #79bd9a, #3b8686, #0b486b) fixed;
+
+}
+
+.fontglow {
+  color: rgb(242, 249, 244);
+  text-shadow: 1px 1px rgb(24, 24, 24)
+}
+
+.fontglow1 {
+  color: aliceblue;
+  text-shadow: 1px 1px rgb(24, 24, 24),
+    0px 0px 5px #d8d8d8;
+}
+
+// ------------------------------------ SCROLLBAR  ---------------------------------------------
+
+*::-webkit-scrollbar {
+  width: 13px;
+
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 100vw;
+}
+
+*::-webkit-scrollbar-track:hover {
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 100px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, #c1c1c1,
+      #767676);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  width: 100px;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  background: linear-gradient(to bottom right, #797979,
+      #494949);
 }

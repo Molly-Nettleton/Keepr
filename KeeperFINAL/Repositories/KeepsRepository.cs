@@ -77,8 +77,6 @@ public class KeepsRepository : BaseRepository
     var rows = _db.Execute(sql, new { keepId });
     if (rows != 1)
     { throw new Exception("Bad data."); }
-   
-
   }
 
   internal Keep GetKeepById(int keepId)

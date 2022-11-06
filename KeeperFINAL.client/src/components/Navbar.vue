@@ -1,33 +1,36 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+  <nav class="navbar navbar-expand-lg navbar-white bg-white px-3 d-flex justify-content-between elevation-3">
+    <div class="d-flex">
+      <router-link class="" :to="{ name: 'Home' }">
+        <button class="button btn border border-3 me-3 hover">Home</button>
+      </router-link>
+
+      <div class="dropdown">
+        <button class="button btn border border-3 dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          Create
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          
+          <li class="dropdown-item border-bottom" data-bs-target="#createKeepModal" data-bs-toggle="modal">New Keep</li>
+
+          <li><a class="dropdown-item" data-bs-target="#createVaultModal" data-bs-toggle="modal" href="#">New Vault</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <router-link class="navbar-brand d-flex pe-5 me-5" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <img alt="logo" src="src\assets\img\Keepr logo.png" class="bg-white" height="45" />
       </div>
     </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
+    <!-- LOGIN COMPONENT HERE -->
+    <Login class="hover" />
+
   </nav>
+
 </template>
 
 <script>
@@ -60,5 +63,4 @@ a:hover {
     height: 64px;
   }
 }
-
 </style>
