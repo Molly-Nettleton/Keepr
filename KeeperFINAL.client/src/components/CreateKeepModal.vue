@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header border border-0">
-          <div class="modal-title fs " id="createKeepModalLabel">Add Keep</div>
+          <div class="modal-title fs " id="createKeepModalLabel">Create Keep</div>
 
         </div>
         <div class="modal-body">
@@ -51,7 +51,6 @@ export default {
       editable,
       async handleSubmit() {
         try {
-
           await keepsService.createKeep(editable.value)
           editable.value = {}
         } catch (error) {

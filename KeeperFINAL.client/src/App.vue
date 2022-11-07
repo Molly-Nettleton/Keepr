@@ -34,7 +34,7 @@ export default {
     return {
       appState: computed(() => AppState),
       keep: computed(() => AppState.activeKeep),
-      activeKeep: computed(() => AppState.activeKeep)
+      activeKeep: computed(() => AppState.activeKeep),
     }
   },
   components: { Navbar, CreateKeepModal, CreateVaultModal, ModalComponent, ActiveKeepModal }

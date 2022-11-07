@@ -14,7 +14,7 @@ class KeepsService {
   async getAllKeeps() {
     const res = await api.get('api/keeps')
     console.log(res.data);
-    AppState.keeps = res.data.map(k => new Keep(k), ...AppState.keeps)
+    AppState.keeps = res.data.map(k => new Keep(k))
     console.log(AppState.keeps);
   }
 
@@ -23,13 +23,9 @@ class KeepsService {
     console.log("[createKeep]", res.data);
     const newKeep = new Keep(res.data);
     AppState.keeps = [newKeep, ...AppState.keeps];
+    AppState.accountKeeps = [newKeep, ...AppState.accountKeeps]
   }
 
-  async getUserKeeps() {
-    const res = await api.get("api/keeps");
-    console.log(res.data)
-    AppState.keeps = res.data.map((k) => new Keep(k));
-    AppState.keeps = AppState.keeps.filter((k) => k.creator.id == AppState.account.id);
-  }
+  
 }
 export const keepsService = new KeepsService();

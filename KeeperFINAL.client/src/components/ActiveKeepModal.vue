@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between" v-if="keep">
 
           <div class="col-md-6">
-            <img :src="keep.img" alt="" class="imgcol rounded-start" @error="badImg" />
+            <img :src="keep?.img" alt="" class="imgcol rounded-start" @error="badImg" />
           </div>
 
 
@@ -17,11 +17,11 @@
 
                 <div class="">
                   <img src="src\assets\img\Vector (3).png" height="12" width="18" alt="">
-                  <span class="ms-1">{{ keep.viewCount }}</span>
+                  <span class="ms-1">{{ keep?.viewCount }}</span>
                 </div>
 
                 <div class="ms-3"><img src="src\assets\img\Logo (1).png" height="18" width="18" alt="">
-                  <span class="ms-1 ">{{ keep.keptCount }}</span>
+                  <span class="ms-1 ">{{ keep?.keptCount }}</span>
                 </div>
 
               </div>
@@ -29,18 +29,19 @@
 
 
             <div class=" justify-content-center">
-              <h4 class="d-flex justify-content-center">{{ keep.name }} </h4><div class="d-flex justify-content-center">{{ keep.description }}</div> 
+              <h4 class="d-flex justify-content-center">{{ keep?.name }} </h4>
+              <div class="d-flex justify-content-center">{{ keep?.description }}</div>
             </div>
             <div class=" ">
               <div class="d-flex justify-content-between">
                 <AddToVault />
-                <div class="">
-                  <router-link :to="{ name: 'Account' }">
-                  {{ keep.creator.name }}<img :src="keep.creator.picture" height="50" width="50"
-                    class="ms-2 rounded-circle elevation-2 hover" alt="">
-                    </router-link>
-                  
-                  </div>
+                <div class="text-white" data-bs-dismiss="modal">
+                  <router-link :to="{ name: 'Profile', params: { id: keep?.creator.id } }">
+                    {{ keep?.creator.name }}<img :src="keep?.creator.picture" height="50" width="50"
+                      class="ms-2 rounded-circle elevation-2 hover" alt="">
+                  </router-link>
+
+                </div>
               </div>
 
             </div>
@@ -59,7 +60,8 @@
 import { computed, ref } from "@vue/reactivity";
 import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
-import { Keep } from "../models/Vault.js";
+import { Keep } from "../models/Keep.js";
+
 
 export default {
   props: {

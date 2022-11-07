@@ -2,13 +2,13 @@
   <div class="account Page container">
     <div class="row bg-c5 banner eum-ipsum rounded-1 ">
       <div class="col-md-12 d-flex justify-content-center">
-        <img :src="account?.picture" alt="" class="eum rounded-circle mt-2 icon forcedImg" />
+        <img :src="profile?.picture" alt="" class="eum rounded-circle mt-2 icon forcedImg" />
       </div>
     </div>
 
     <div class="row justify-content-center align-items-center g-2 mt-3 mb-2">
       <div class="col-md text-center">
-        <h1 class="username mt-5">{{ account?.name }}</h1>
+        <h1 class="username mt-5">{{ profile?.name }}</h1>
         <div class="fw-bold">vault # + keep #</div>
       </div>
     </div>
@@ -35,40 +35,58 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
-import { Account } from "../models/Account.js";
-import Pop from "../utils/Pop.js";
 import KeepCard from "../components/KeepCard.vue";
-import { accountService } from "../services/AccountService.js";
 import VaultCard from "../components/VaultCard.vue";
+import { Account } from "../models/Account.js";
+import { profilesService } from "../services/ProfilesService.js";
+import Pop from "../utils/Pop.js";
 
 
 export default {
+  // props: {
+  //   profile: {
+  //     type: Account,
+  //     required: true,
+  //   }
+  // },
   setup() {
-    async function getMyKeeps() {
+    const route = useRoute();
+    async function getProfileById() {
       try {
-        await accountService.getMyKeeps();
+        await profilesService.getProfileById(route.params.id);
+      } catch (error) {
+        Pop.error(error, "[getProfile]");
+      }
+    }
+    async function getProfilesKeeps() {
+      try {
+        await profilesService.getProfilesKeeps(route.params.id);
       }
       catch (error) {
         Pop.error(error);
       }
     }
-
-    async function getMyVaults() {
+    async function getProfilesVaults() {
       try {
-        await accountService.getMyVaults();
+        await profilesService.getProfilesVaults(route.params.id)
       } catch (error) {
-        Pop.error(error)
+        Pop.error(error);
       }
     }
+
     onMounted(() => {
-      getMyKeeps(),
-        getMyVaults()
+      getProfileById();
+      getProfilesKeeps();
+      getProfilesVaults();
     });
     return {
       account: computed(() => AppState.account),
-      keeps: computed(() => AppState.accountKeeps),
-      vaults: computed(() => AppState.accountVaults)
+      profile: computed(() => AppState.activeProfile),
+      keeps: computed(() => AppState.profilesKeeps),
+      vaults: computed(() => AppState.profilesVaults),
+
     };
   },
   components: { KeepCard, VaultCard }

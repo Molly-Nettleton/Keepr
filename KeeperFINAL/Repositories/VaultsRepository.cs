@@ -14,12 +14,14 @@ public class VaultsRepository : BaseRepository
                 name,
                 description,
                 img
+               
               )
               VALUES (
                 @CreatorId,
                 @Name,
                 @Description,
                 @Img
+                
               );
               SELECT LAST_INSERT_ID()
                   ; ";

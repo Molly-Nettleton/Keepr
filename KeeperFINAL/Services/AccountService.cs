@@ -36,4 +36,9 @@ public class AccountService
   {
     return _repo.GetMyVaults(creatorId);
   }
+
+  internal List<Keep> GetMyKeeps(string accountId)
+  {
+    return _repo.GetAccountKeeps(accountId);
+  }
 }

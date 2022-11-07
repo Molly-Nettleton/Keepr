@@ -1,5 +1,5 @@
 import { Account } from "./Account.js"
-export class Keep {
+export class Vault {
   constructor(data) {
     this.id = data.id
     this.creatorId = data.creatorId

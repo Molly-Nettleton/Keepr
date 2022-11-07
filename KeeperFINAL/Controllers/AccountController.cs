@@ -44,4 +44,22 @@ public class AccountController : ControllerBase
     }
   }
 
+
+  [HttpGet("keeps")]
+  public async Task<ActionResult<List<Keep>>> GetAccountKeeps()
+  {
+    try
+    {
+      var userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<Keep> accountKeeps = _accountService.GetMyKeeps(userInfo?.Id);
+      return Ok(accountKeeps);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+
 }
