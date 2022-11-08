@@ -5,10 +5,13 @@ public class VaultsService
   private readonly VaultsRepository _vr;
   private readonly KeepsRepository _kr;
 
-  public VaultsService(VaultsRepository vr, KeepsRepository kr)
+  private readonly VaultKeepsRepository _vkr;
+
+  public VaultsService(VaultsRepository vr, KeepsRepository kr, VaultKeepsRepository vkr)
   {
     _vr = vr;
     _kr = kr;
+    _vkr = vkr;
   }
 
   internal Vault CreateVault(Vault vaultData)
@@ -16,30 +19,34 @@ public class VaultsService
     return _vr.CreateVault(vaultData);
   }
 
-  internal Vault GetVaultById(int vaultId)
+  internal Vault GetVaultById(int vaultId, string userId)
   {
-    var foundVault = _vr.GetVaultById(vaultId);
+    Vault foundVault = _vr.GetVaultById(vaultId);
     if (foundVault == null)
     {
       throw new Exception("Vault not found");
     }
     if (foundVault.IsPrivate == true)
     {
-      throw new Exception("This vault is private.");
+      if (foundVault.CreatorId != userId)
+      {
+        throw new Exception("Bad ID.");
+      }
     }
     return foundVault;
   }
 
   internal Vault EditVault(Vault vaultData, string accountId)
   {
-    if (vaultData.CreatorId != accountId)
+    Vault original = GetVaultById(vaultData.Id, accountId);
+    if (original.CreatorId != accountId)
     {
       throw new Exception("Unauthorized.");
     }
-    Vault original = GetVaultById(vaultData.Id);
     original.Name = vaultData.Name ?? original.Name;
     original.Description = vaultData.Description ?? original.Description;
     original.Img = vaultData.Img ?? original.Img;
+    original.IsPrivate = vaultData.IsPrivate ?? original.IsPrivate;
 
     Vault vault = _vr.EditVault(original);
     return vault;
@@ -47,11 +54,19 @@ public class VaultsService
 
   internal void DeleteVault(int vaultId, string userId)
   {
-    Vault vault = GetVaultById(vaultId);
+    Vault vault = GetVaultById(vaultId, userId);
     if (vault.CreatorId != userId)
     {
       throw new Exception("Bad ID.");
     }
     _vr.DeleteVault(vaultId);
   }
+
+  internal List<KeptKeep> GetKeepsByVaultId(int vaultId, string accountId)
+  {
+    Vault vault = GetVaultById(vaultId, accountId);
+    List<KeptKeep> keeps = _vkr.GetKeepsByVaultId(vaultId);
+    return _vkr.GetKeepsByVaultId(vaultId);
+  }
+
 }

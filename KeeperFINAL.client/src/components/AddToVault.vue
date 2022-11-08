@@ -1,12 +1,9 @@
 <template>
-  <div class="component">
+  <div class="component" v-if="user.isAuthenticated">
     <form @submit.prevent="handleSubmit()" class="d-flex justify-content-center align-items-center">
       <div class="dropDown" height="30" width="30">
         <select v-model="editable" class="form-select" aria-label="Default select example">
-
-
-          <option v-for="v in vaults" :value="v"><a class="dropdown-item" >{{ v.name }}</a></option>
-
+          <option v-for="v in vaults" :value="v"><a class="dropdown-item">{{ v.name }}</a></option>
         </select>
       </div>
 
@@ -25,6 +22,7 @@ import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { ref } from "vue"
 import { vaultKeepsService } from "../services/VaultKeepsService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
 
@@ -33,21 +31,23 @@ export default {
     return {
       editable,
       async handleSubmit() {
-// console.log(AppState.accountVaults);
-      
-
-        
         let formData = {
           keepId: AppState.activeKeep.id,
           vaultId: editable.value.id
         }
         try {
+          Pop.success(
+            `Added to list.`
+          );
           console.log(formData);
           await vaultKeepsService.createVaultKeep(formData)
+
         } catch (error) {
+          console.error(error)
         }
       },
       vaults: computed(() => AppState.accountVaults),
+      user: computed(() => AppState.user)
     }
   }
 }

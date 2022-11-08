@@ -8,9 +8,8 @@ class VaultKeepsService {
     const res = await api.post("api/vaultKeeps", keepId)
     console.log(res.data);
     let newVaultKeep = new VaultKeep(res.data)
-
     AppState.vaultKeeps = [...AppState.vaultKeeps, newVaultKeep]
-
+    AppState.activeKeep.keptCount++
   }
 
 }

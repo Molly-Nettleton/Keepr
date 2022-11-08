@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="pt-5">
+    <div class="pt-5 pb-4">
       <div class="masonrycol">
         <div class="" v-for="k in keeps">
           <KeepCard :keep="k" :key="k.id" />
@@ -44,5 +44,11 @@ export default {
 <style scoped lang="scss">
 .masonrycol {
   columns: 4;
+}
+
+@media screen AND (max-width: 768px) {
+  .masonrycol {
+      columns: 2;
+    }
 }
 </style>

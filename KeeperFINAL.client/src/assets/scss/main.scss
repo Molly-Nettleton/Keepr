@@ -3,11 +3,15 @@
 @import "./_overrides.scss";
 @import "./_utilities.scss";
 @import "./loaders.scss";
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
 body{
   overscroll-behavior: none;
 }
 
+* {
+  font-family: 'Arvo', serif;
+}
 
 #app {
   display: flex;
@@ -64,9 +68,9 @@ form:invalid button[type="submit"] {
 
 }
 
-.fontglow {
+.fontbg {
   color: rgb(242, 249, 244);
-  text-shadow: 1px 1px rgb(24, 24, 24)
+  text-shadow: 1px 1px rgb(49, 49, 49)
 }
 
 .fontglow1 {

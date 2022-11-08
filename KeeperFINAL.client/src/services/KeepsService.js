@@ -6,9 +6,12 @@ import { api } from "./AxiosService.js";
 class KeepsService {
   async getKeepDetails(keep) {
     AppState.activeKeep = keep
-   await api.get(`api/keeps/${keep.id}`)
+    await api.get(`api/keeps/${keep.id}`)
     // AppState.activeKeep = new Keep(res.data)
-    console.log(AppState.activeKeep);
+    if (AppState.activeKeep.creatorId != AppState.account.id) {
+      AppState.activeKeep.viewCount++
+    }
+    console.log(AppState.activeKeep)
   }
 
   async getAllKeeps() {
@@ -26,6 +29,9 @@ class KeepsService {
     AppState.accountKeeps = [newKeep, ...AppState.accountKeeps]
   }
 
-  
+  async removeKeep(id) {
+    await api.delete(`api/keeps/${id}`);
+    AppState.keeps = AppState.keeps.filter(k => k.id !== id)
+  }
 }
 export const keepsService = new KeepsService();

@@ -1,6 +1,7 @@
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
 import { Vault } from "../models/Vault.js";
+import { router } from "../router.js";
 import { api } from "./AxiosService.js";
 
 
@@ -25,6 +26,17 @@ class VaultsService {
     AppState.vaults = [newVault, ...AppState.vaults]
     AppState.accountVaults = [newVault, ...AppState.accountVaults]
     console.log(AppState.accountVaults)
+  }
+
+  async editVault(vaultData, id) {
+    const res = await api.put(`api/vaults/${id}`, vaultData)
+    AppState.activeVault = new Vault(res.data)
+  }
+  async removeVault(id) {
+    const vault = await api.delete(`api/vaults/${id}`)
+    if (vault) {
+      router.push({ name: 'Account' })
+    }
   }
 }
 export const vaultsService = new VaultsService();

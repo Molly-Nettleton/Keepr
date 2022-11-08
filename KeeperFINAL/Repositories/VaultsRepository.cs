@@ -13,15 +13,15 @@ public class VaultsRepository : BaseRepository
                 creatorId,
                 name,
                 description,
-                img
-               
+                img,
+               isPrivate
               )
               VALUES (
                 @CreatorId,
                 @Name,
                 @Description,
-                @Img
-                
+                @Img,
+                @IsPrivate
               );
               SELECT LAST_INSERT_ID()
                   ; ";
@@ -54,9 +54,10 @@ public class VaultsRepository : BaseRepository
     string sql = @" 
     UPDATE vaults 
     SET
-    name = @name,
-    description = @description,
-    img = @img
+    name = @Name,
+    description = @Description,
+    img = @Img,
+    isPrivate = @IsPrivate
     WHERE
     id = @Id LIMIT 1
 

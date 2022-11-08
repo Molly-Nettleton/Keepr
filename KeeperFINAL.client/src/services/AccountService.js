@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { Account } from "../models/Account.js"
 import { Keep } from "../models/Keep.js"
 import { Vault } from "../models/Vault.js"
 import { logger } from '../utils/Logger'
@@ -24,6 +25,11 @@ class AccountService {
     const res = await api.get(`/account/vaults`)
     AppState.accountVaults = res.data.map((v) => new Vault(v))
     console.log(AppState.accountVaults)
+  }
+
+  async editAccountInfo(accountData, id) {
+    const res = await api.put(`/account`, accountData)
+    AppState.account = new Account(res.data)
   }
 }
 
