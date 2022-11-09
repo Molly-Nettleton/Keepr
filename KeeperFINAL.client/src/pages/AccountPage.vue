@@ -1,17 +1,21 @@
 <template>
-  <div class="account container">
-    <div class="container main">
+  <div class="account container px-5">
+
+
+    <div class="col-12">
       <div class="bg-c5 eum-ipsum rounded-5 " :style="{ backgroundImage: `url(${account?.coverImg})` }">
         <div class="col-md-12 d-flex justify-content-center">
-          <img :src="account?.picture" alt="" class="eum rounded-circle mt-2 icon forcedImg" />
+          <img :src="account?.picture" alt="" class="eum rounded-circle icon forcedImg" />
         </div>
       </div>
     </div>
 
-    <div class="row justify-content-center align-items-center g-2 mt-3 mb-2">
+
+
+    <div class="row justify-content-center align-items-center g-2 mt-5 mb-2">
       <div class="col-md text-center">
 
-        <div class="dropdown position-absolute drpdwn">
+        <div title="Edit account info" class="dropdown position-absolute drpdwn">
           <button class="button btn border border-3 dropdown-toggle hover rounded-pill" type="button"
             id="dropdownmenuvault" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
@@ -22,22 +26,22 @@
         </div>
 
 
-        <h1 class="username mt-5">{{ account?.name }}</h1>
-        <div class="fw-bold">{{vaults.length}} Vaults ║║  {{keeps.length}} Keeps</div>
+        <h1 class="username mt-md-5 mt-3 fw-bold">{{ account?.name }}</h1>
+        <div class="fw-bold">{{ vaults.length }} Vaults ║ {{ keeps.length }} Keeps</div>
       </div>
     </div>
     <div>
-      <h1 class="vaults">Vaults</h1>
-      <div class="row">
+      <h1 class="vaults fw-bold">Vaults</h1>
+      <div class="row vaultr">
         <div class="col-md-3" v-for="v in vaults">
           <VaultCard :vault="v" :key="v.id" />
         </div>
       </div>
     </div>
-    <div>
-      <h1>Keeps</h1>
+    <div class="mt-4">
+      <h1 class="fw-bold">Keeps</h1>
       <div class="masonrycol mb-3">
-        <div class="" v-for="k in keeps">
+        <div class="d-flex align-items-center" v-for="k in keeps">
           <KeepCard :keep="k" :key="k.id" />
         </div>
       </div>
@@ -56,21 +60,25 @@
         <div class="modal-body">
           <form @submit.prevent="editAccountInfo()">
             <div class="mb-3 ">
-              <input type="text" class="form-control border border-0" required name="name" id="name"
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control border border-0" name="name" id="name"
                 aria-describedby="Profile Name" placeholder="Name..." v-model="editable.name">
+
             </div>
             <div class="mb-3">
-
-              <input type="url" required name="picture" class="form-control border border-0" id="picture"
+              <label for="picture" class="form-label">Picture</label>
+              <input type="url" name="picture" class="form-control border border-0" id="picture"
                 placeholder="Profile Picture" v-model="editable.picture">
             </div>
             <div class="mb-3">
-
-              <input type="url" class="form-control border border-0" id="coverImg" placeholder="coverImg" rows="6"
-                cols="50" v-model="editable.coverImg">
+              <label for="coverimg" class="form-label">Cover Image</label>
+              <input type="url" class="form-control border border-0" name="coverImg" id="coverImg"
+                placeholder="coverImg" rows="6" cols="50" v-model="editable.coverImg">
             </div>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
           </form>
           <div class="d-flex justify-content-between">
 
@@ -85,7 +93,7 @@
 
 <script>
 import { computed, ref } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Account } from "../models/Account.js";
 import Pop from "../utils/Pop.js";
@@ -115,8 +123,12 @@ export default {
     }
     onMounted(() => {
       getMyKeeps(),
-        getMyVaults()
+        getMyVaults(),
+        AppState.activeVault = null;
     });
+    watchEffect(() => {
+      editable.value = { ...AppState.account }
+    })
     return {
       editable,
       account: computed(() => AppState.account),
@@ -132,6 +144,7 @@ export default {
         }
       }
     };
+
   },
   components: { KeepCard, VaultCard }
 }
@@ -142,15 +155,16 @@ export default {
 .eum-ipsum {
   // background-image: URL("https://images.unsplash.com/photo-1553532070-9f677c9df3dc");
   background-size: cover;
-  height: 350px;
+  background-position: center;
+  height: 500px;
   margin-top: 50px;
   position: relative;
-  margin-inline: 200px;
 }
 
 .banner {
   height: 43.5vh;
   object-fit: cover;
+  object-position: center;
   border-radius: 55px;
 }
 
@@ -160,8 +174,8 @@ export default {
 }
 
 .forcedImg {
-  height: 120px;
-  width: 120px;
+  height: 160px;
+  width: 160px;
 }
 
 .icon {
@@ -179,7 +193,17 @@ export default {
 }
 
 .drpdwn {
-  transform: translateY(-1rem) translateX(64.5rem);
+  transform: translateY(-3rem) translateX(72.5rem);
+}
+
+.vaultr {
+  height: 450px;
+  overflow: auto;
+}
+
+.fs {
+  font-size: 40px;
+  font-weight: 700;
 }
 
 @media screen AND (max-width: 768px) {
@@ -193,24 +217,28 @@ export default {
     border-radius: 55px;
   }
 
-  .eum-ipsum {
-    width: 230px;
-    margin: 0%;
-    padding: 0%;
-  }
 
   .main {
     margin-left: 3rem;
     margin-top: 1rem;
   }
 
-    .drpdwn {
-      transform: translateY(-1rem) translateX(15.5rem);
-    }
+  .drpdwn {
+    transform: translateY(-3rem) translateX(22.5rem);
+  }
 
-    .vaults{
-      padding-left: 1rem;
-    }
+  .vaults {
+    padding-left: 1rem;
+  }
+
+  .eum-ipsum {
+    // background-image: URL("https://images.unsplash.com/photo-1553532070-9f677c9df3dc");
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    margin-top: 50px;
+    position: relative;
+  }
 
 }
 </style>

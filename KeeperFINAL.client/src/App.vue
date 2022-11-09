@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="d-sm-fixed-bottom">
     <Navbar />
   </header>
   <main>
@@ -41,6 +41,22 @@ export default {
 }
 </script>
 <style lang="scss">
+body.debug .container,
+  body.debug .container-fluid {
+    outline: 2px double blue;
+    outline-offset: -2px;
+  }
+
+  body.debug .row {
+    outline: 2px dashed red;
+    outline-offset: -2px;
+  }
+
+  body.debug [class*="col-"] {
+    outline: 2px dotted forestgreen;
+    outline-offset: -3px;
+  }
+
 @import "./assets/scss/main.scss";
 
 :root {
@@ -52,5 +68,9 @@ footer {
   display: grid;
   place-content: center;
   height: 32px;
+}
+
+@media screen AND (max-width: 768px) {
+  
 }
 </style>

@@ -1,20 +1,20 @@
 <template>
-  <div class="account Page container" v-if="profile">
+  <div class="account container px-5" v-if="profile">
 
-    <div class="container main">
-      <div class="row bg-c5 eum-ipsum rounded-1 ">
-        <div class="row">
-          <img :src="profile.coverImg" alt="" class="banner img-fluid">
-        </div>
+    <div class="col-12">
+      <div class=" bg-c5 eum-ipsum rounded-5 " :style="{ backgroundImage: `url(${profile?.coverImg})` }">
         <div class="col-md-12 d-flex justify-content-center">
-          <img :src="profile?.picture" alt="" class="eum rounded-circle mt-2 icon forcedImg" />
+          <img :src="profile?.picture" alt="" class="eum rounded-circle icon forcedImg" />
         </div>
       </div>
     </div>
-    <div class="row justify-content-center align-items-center g-2 mt-3 mb-2">
-      <div class="col-md text-center">
-        <h1 class="username mt-5">{{ profile?.name }}</h1>
-        <div class="fw-bold"> {{ keeps.length }} Keeps ║ ║ {{ vaults.length }} Vaults</div>
+
+
+    <div class="row justify-content-center align-items-center g-2 mt-4 mb-2">
+      <div class="col-md text-center mt-md-5 mt-4">
+
+        <h1 class="username mt-4 fw-bold">{{ profile?.name }}</h1>
+        <div class="fw-bold"> {{ keeps.length }} Keeps ║ {{ vaults.length }} Vaults</div>
       </div>
     </div>
     <div>
@@ -95,12 +95,13 @@ export default {
       getProfileById();
       getProfilesKeeps();
       getProfilesVaults();
+      AppState.activeVault = null;
     });
     return {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
       keeps: computed(() => AppState.profilesKeeps),
-      vaults: computed(() => AppState.profilesVaults),
+      vaults: computed(() => AppState.profilesVaults)
 
     };
   },
@@ -113,15 +114,16 @@ export default {
 .eum-ipsum {
   // background-image: URL("https://images.unsplash.com/photo-1553532070-9f677c9df3dc");
   background-size: cover;
-  height: 350px;
+  background-position: center;
+  height: 500px;
   margin-top: 50px;
   position: relative;
-  margin-inline: 200px;
 }
 
 .banner {
   height: 43.5vh;
   object-fit: cover;
+  object-position: center;
   border-radius: 55px;
 }
 
@@ -131,8 +133,8 @@ export default {
 }
 
 .forcedImg {
-  height: 120px;
-  width: 120px;
+  height: 160px;
+  width: 160px;
 }
 
 .icon {
@@ -160,15 +162,27 @@ export default {
     border-radius: 55px;
   }
 
-  .eum-ipsum {
-    width: 300px;
-    margin: 0%;
-    padding: 0%;
-  }
 
   .main {
-    margin-left: 3.5rem;
+    margin-left: 3rem;
     margin-top: 1rem;
+  }
+
+  .drpdwn {
+    transform: translateY(-3rem) translateX(22.5rem);
+  }
+
+  .vaults {
+    padding-left: 1rem;
+  }
+
+  .eum-ipsum {
+    // background-image: URL("https://images.unsplash.com/photo-1553532070-9f677c9df3dc");
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    margin-top: 50px;
+    position: relative;
   }
 }
 </style>

@@ -38,5 +38,6 @@ class VaultsService {
       router.push({ name: 'Account' })
     }
   }
+
 }
 export const vaultsService = new VaultsService();

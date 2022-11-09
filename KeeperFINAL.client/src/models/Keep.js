@@ -3,7 +3,7 @@ export class Keep {
   constructor(data) {
     this.id = data.id
     this.creatorId = data.creatorId
-    this.creator = new Account(data.creator)
+    this.creator = data.creator
     // this.profile = data.profile
     this.createdAt = data.createdAt
     this.updatedAt = data.updatedAt
@@ -12,5 +12,7 @@ export class Keep {
     this.img = data.img
     this.keptCount = data.kept
     this.viewCount = data.views
+    this.vaultId = data.vaultId
+    this.vaultKeepId = data.vaultKeepId
   }
 }

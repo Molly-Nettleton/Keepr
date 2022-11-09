@@ -24,11 +24,14 @@
                 rows="6" cols="50" v-model="editable.description"></textarea>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="editable.isPrivate">
+              <input type="checkbox" class="form-check-input border-black border" id="exampleCheck1"
+                v-model="editable.isPrivate">
               <label class="form-check-label" for="exampleCheck1">Private vault?</label>
             </div>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
           </form>
           <div class="d-flex justify-content-between">
 
@@ -44,7 +47,7 @@
 <script>
 import { vaultsService } from "../services/VaultsService.js";
 import { ref } from "vue"
-
+import Pop from "../utils/Pop.js";
 export default {
   setup() {
     const editable = ref({});
@@ -56,6 +59,7 @@ export default {
           editable.value = {}
         } catch (error) {
           console.error(error);
+          Pop.error(error, "[handleSubmit]");
         }
       }
     }

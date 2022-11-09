@@ -9,7 +9,7 @@
         <div type="button" class="bg-white border-0 selectable no-select " data-bs-toggle="dropdown"
           aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded-circle me-4" />
+            <img :src="account.picture || user.picture" alt="account photo" height="60" width="70" class="rounded-circle me-4 elevation-4 hover" />
           </div>
         </div>
         <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">

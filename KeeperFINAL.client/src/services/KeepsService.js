@@ -5,9 +5,10 @@ import { api } from "./AxiosService.js";
 
 class KeepsService {
   async getKeepDetails(keep) {
-    AppState.activeKeep = keep
+
     await api.get(`api/keeps/${keep.id}`)
     // AppState.activeKeep = new Keep(res.data)
+    AppState.activeKeep = keep
     if (AppState.activeKeep.creatorId != AppState.account.id) {
       AppState.activeKeep.viewCount++
     }
@@ -31,7 +32,8 @@ class KeepsService {
 
   async removeKeep(id) {
     await api.delete(`api/keeps/${id}`);
-    AppState.keeps = AppState.keeps.filter(k => k.id !== id)
+    AppState.keeps = AppState.keeps.filter(k => k.id != id)
+    AppState.accountKeeps = AppState.accountKeeps.filter(k => k.id != id)
   }
 }
 export const keepsService = new KeepsService();

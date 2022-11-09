@@ -3,12 +3,23 @@
     <div class="row  justify-content-center">
       <div class="imgrow rounded-2 mt-5 text-white d-flex align-items-center justify-content-end flex-column "
         :style="{ backgroundImage: `url(${vault?.img})` }">
-        <router-link :to="{ name: 'Profile', params: { id: vault?.creator.id } }" class="text-white text-center">
-          <h1>{{ vault?.name }}</h1>
-          <p>by {{ vault?.creator.name }}</p>
-        </router-link>
+        <div v-if="vault.isPrivate" class="lock">
+          <i class="mdi mdi-lock fs-2" title="Private Vault"></i>
+        </div>
+        <h1 class="fw-bold">{{ vault?.name }}</h1>
 
-        <div class="dropdown position-absolute drpdwn">
+        <div v-if="account.id == vault.creatorId">
+        <router-link :to="{ name: 'Account', params: { id: vault?.creator.id } }" class="text-white text-center">
+          <p>by {{ vault?.creator.name }}</p>
+        </router-link></div>
+
+        <div v-else>
+          <router-link :to="{ name: 'Profile', params: { id: vault?.creator.id } }" class="text-white text-center">
+            <p>by {{ vault?.creator.name }}</p>
+          </router-link>
+        </div>
+
+        <div v-if="account.id == vault.creatorId" class="dropdown position-absolute drpdwn">
           <button class="button btn border border-3 dropdown-toggle hover rounded-pill" type="button"
             id="dropdownmenuvault" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
@@ -21,16 +32,21 @@
         </div>
 
       </div>
-      <div class="d-flex justify-content-center pt-3">
-        <div class="bg-light py-2 px-3 rounded-3">{{ vault?.description }}</div>
-      </div>
-      <div class="d-flex justify-content-center pt-3">
-        <div class="bg-grey py-2 px-3 rounded-pill">{{ vault?.keepCount }} keeps</div>
+      <div>
+        <div class="d-flex justify-content-center pt-3">
+          <div class="bg-grey py-2 px-3 rounded-pill">{{ keep.length }} keeps</div>
+        </div>
+        <div class="d-flex justify-content-center pt-3">
+          <div class="bg-light py-2 px-3 rounded-3">{{ vault?.description }}</div>
+        </div>
       </div>
     </div>
+
+
+
     <div class="pb-4 pt-4">
       <div class="masonrycol">
-        <div class="pt-" v-for="k in keep">
+        <div class="d-flex align-items-center" v-for="k in keep">
           <KeepCard :keep="k" :key="k.id" />
         </div>
       </div>
@@ -79,8 +95,10 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="editable.isPrivate">
               <label class="form-check-label" for="exampleCheck1">Private vault?</label>
             </div>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
           </form>
           <div class="d-flex justify-content-between">
 
@@ -113,12 +131,12 @@ export default {
         await vaultsService.getVaultById(route.params.id);
       }
       catch (error) {
-        Pop.error(error, "[getVault]");
+        Pop.error("Private Vault ID");
+        router.push({ name: 'Home' })
       }
     }
     async function getKeepsByVaultId() {
       try {
-
         await vaultsService.getKeepsByVaultId(route.params.id);
       }
       catch (error) {
@@ -126,12 +144,17 @@ export default {
       }
     }
     watchEffect(() => {
-      if (AppState.activeVault?.isPrivate) {
-        router.push({ name: 'Home' })
-        Pop.toast('Private vault.')
-        AppState.activeVault = null
-      };
-      editable.value = { ...AppState.activeVault }
+
+      // if (AppState.activeVault !== AppState.account) {
+      //   if (AppState.activeVault?.isPrivate) {
+      //     router.push({ name: 'Home' })
+      //     Pop.toast('Private vault.')
+      //     AppState.activeVault = null
+      //   }
+      // };
+
+
+      editable.value = { ...AppState.activeVault };
     })
     onMounted(() => {
       getVaultById();
@@ -141,6 +164,7 @@ export default {
       editable,
       vault: computed(() => AppState.activeVault),
       keep: computed(() => AppState.profilesKeeps),
+      account: computed(() => AppState.account),
       // img: computed(() => `url(${AppState.activeVault?.img})`)
       async removeVault() {
         try {
@@ -184,6 +208,15 @@ export default {
   columns: 4;
 }
 
+.lock {
+  transform: translateY(-6.5rem) translateX(19em);
+}
+
+.fs {
+  font-size: 40px;
+  font-weight: 700;
+}
+
 @media screen AND (max-width: 768px) {
   .masonrycol {
     columns: 2;
@@ -192,5 +225,7 @@ export default {
   .drpdwn {
     transform: translateY(3rem) translateX(10em);
   }
+
+
 }
 </style>

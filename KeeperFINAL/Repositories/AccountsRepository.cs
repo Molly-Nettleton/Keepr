@@ -39,7 +39,7 @@ public class AccountsRepository
             SET 
               name = @Name,
               picture = @Picture,
-              coverImg = @CoverImg,
+              coverImg = @CoverImg
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;

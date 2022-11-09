@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header border border-0">
-          <div class="modal-title fs " id="createKeepModalLabel">Create Keep</div>
+          <div class="modal-title fs" id="createKeepModalLabel">Create Keep</div>
 
         </div>
         <div class="modal-body">

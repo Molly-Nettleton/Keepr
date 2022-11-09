@@ -26,7 +26,7 @@ public class VaultKeepsController : ControllerBase
     try
     {
       var userInfo = await _ape.GetUserInfoAsync<Account>(HttpContext);
-      vaultKeepData.CreatorId = userInfo.Id;
+      vaultKeepData.CreatorId = userInfo?.Id;
       VaultKeep vaultKeep = _vks.CreateVaultKeep(vaultKeepData, userInfo?.Id);
       return Ok(vaultKeep);
     }

@@ -44,7 +44,9 @@ public class VaultKeepsRepository : BaseRepository
     var sql = @"
     SELECT
     vk.*,
+    COUNT(k.id) AS Kept,
     vk.id AS VaultKeepId,
+    vk.creatorId AS VaultKeepCreatorId,
     k.*,
     a.*
     FROM vaultKeeps vk

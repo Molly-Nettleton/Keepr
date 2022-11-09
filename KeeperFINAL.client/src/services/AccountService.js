@@ -27,7 +27,7 @@ class AccountService {
     console.log(AppState.accountVaults)
   }
 
-  async editAccountInfo(accountData, id) {
+  async editAccountInfo(accountData,) {
     const res = await api.put(`/account`, accountData)
     AppState.account = new Account(res.data)
   }

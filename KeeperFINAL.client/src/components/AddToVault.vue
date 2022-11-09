@@ -1,14 +1,17 @@
 <template>
   <div class="component" v-if="user.isAuthenticated">
-    <form @submit.prevent="handleSubmit()" class="d-flex justify-content-center align-items-center">
+    <div>
+      <div class="text-grey">Add to vault..</div>
+    </div>
+    <form @submit.prevent="handleSubmit()" class="d-flex justify-content-center align-items-center border-0">
       <div class="dropDown" height="30" width="30">
-        <select v-model="editable" class="form-select" aria-label="Default select example">
-          <option v-for="v in vaults" :value="v"><a class="dropdown-item">{{ v.name }}</a></option>
+        <select v-model="editable" class="form-select hoverable border border-grey border-3" required
+          title="Add to vault" aria-label="Select vault..">
+          <option v-for="v in vaults" :value="v" required selected><a class="dropdown-item">{{ v.name }}</a></option>
         </select>
       </div>
-
       <div class="ms-2">
-        <button class="btn p-0 px-1 bg-c6 mt-1 add" type="submit">
+        <button class="btn p-0 px-1 bg-c6 mt-1 add hoverable" type="submit">
           <i class="fs-5 add mdi mdi-plus text-dark"></i>
         </button>
       </div>
@@ -34,7 +37,10 @@ export default {
         let formData = {
           keepId: AppState.activeKeep.id,
           vaultId: editable.value.id
+
         }
+        console.log(formData);
+
         try {
           Pop.success(
             `Added to list.`
@@ -47,7 +53,8 @@ export default {
         }
       },
       vaults: computed(() => AppState.accountVaults),
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      activeKeep: computed(() => AppState.activeKeep)
     }
   }
 }
