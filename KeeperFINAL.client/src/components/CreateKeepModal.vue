@@ -1,13 +1,13 @@
 <template>
   <div class="modal fade" data-backdrop="static" id="createKeepModal" tabindex="-1"
     aria-labelledby="createKeepModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header border border-0">
           <div class="modal-title fs" id="createKeepModalLabel">Create Keep</div>
 
         </div>
-        <div class="modal-body">
+        <div class="modal-body d-flex gap-2">
           <form @submit.prevent="handleSubmit()">
             <div class="mb-3 ">
               <input type="text" class="form-control border border-0" required name="title" id="title"

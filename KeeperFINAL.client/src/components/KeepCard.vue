@@ -1,15 +1,15 @@
 <template>
   <span v-if="routeAccount">
-    <div class="card bg-dark text-white border border-0 elevation-4 m-3 hover">
+    <div class="card bg-dark text-white border border-0 elevation-4 m-3 hover ">
       <img :src="keep.img" class="card-img" alt="...">
-      <div class="card-img-overlay d-flex align-items-end justify-content-between">
+      <div class="card-img-overlay d-flex align-items-end justify-content-between info">
 
-        <div @click="getKeepDetails()" class="card-title fontbg fs-3 fw-bold text-lowercase hoverable"
+        <div @click="getKeepDetails()" class="card-title fontbg fs-3 fw-bold text-lowercase hoverable "
           data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <span :title="keep.name" :aria-label="keep.name">{{ keep.name }}</span>
+          <span :title="keep.name" :aria-label="keep.name" class="title">{{ keep.name }}</span>
         </div>
 
-        <div v-if="account.id == keep.creatorId" class=" text-end">
+        <div v-if="account.id == keep.creatorId" class=" text-end title">
           <i class="mdi mdi-delete fs-5 remove rounded-5 px-1 hoverable" @click="removeKeep()"></i>
         </div>
       </div>
@@ -20,11 +20,11 @@
 
   <span v-else-if="routeHome">
     <div @click="getKeepDetails()" data-bs-toggle="modal" data-bs-target="#exampleModal"
-      class="card bg-dark text-white border border-0 elevation-5 hoverable my-2 hover">
+      class="card bg-dark text-white border border-0 elevation-5 hoverable my-2 hover ">
       <img :src="keep.img" class="card-img" alt="..." :title="keep.name" :aria-label="keep.name">
-      <div class="card-img-overlay d-flex align-items-end justify-content-between">
-        <div class="card-title fontbg fs-3 fw-bold text-lowercase">
-          <span :title="keep.name" :aria-label="keep.name" class="title">{{ keep.name }}</span>
+      <div class="card-img-overlay d-flex align-items-end justify-content-between info">
+        <div class="card-title fontbg fs-3 fw-bold text-lowercase ">
+          <span :title="keep.name" :aria-label="keep.name" class="title ">{{ keep.name }}</span>
         </div>
         <img :src="keep.creator.picture" height="40" width="40"
           class="rounded-circle elevation-2 userpic border border-2 border-solid border-white" alt=""
@@ -111,6 +111,32 @@ export default {
   transition: all 0.7s ease;
 }
 
+.title {
+  opacity: 0;
+}
+
+.userpic {
+  opacity: 0;
+}
+
+.info {
+  display: none;
+}
+
+.info:hover {
+  .title {
+    opacity: 1;
+    transition: all 1.5s ease;
+  }
+
+  .userpic {
+    opacity: 1;
+    transition: all 1.5s ease;
+  }
+
+  
+}
+
 @media screen AND (max-width: 768px) {
   .title {
     font-size: small;
@@ -119,5 +145,7 @@ export default {
   .userpic {
     display: none;
   }
+
+
 }
 </style>

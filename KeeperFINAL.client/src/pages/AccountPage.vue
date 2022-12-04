@@ -196,10 +196,10 @@ export default {
   transform: translateY(-3rem) translateX(72.5rem);
 }
 
-.vaultr {
-  height: 450px;
-  overflow: auto;
-}
+// .vaultr {
+//   height: 450px;
+//   overflow: auto;
+// }
 
 .fs {
   font-size: 40px;
