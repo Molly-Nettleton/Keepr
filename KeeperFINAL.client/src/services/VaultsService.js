@@ -21,11 +21,9 @@ class VaultsService {
 
   async createVault(vaultData) {
     const res = await api.post("api/vaults", vaultData);
-    console.log("[createVault]", res.data);
     const newVault = new Vault(res.data);
     AppState.vaults = [newVault, ...AppState.vaults]
     AppState.accountVaults = [newVault, ...AppState.accountVaults]
-    console.log(AppState.accountVaults)
   }
 
   async editVault(vaultData, id) {

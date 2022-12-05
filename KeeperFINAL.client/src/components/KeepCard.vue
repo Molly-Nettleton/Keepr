@@ -37,7 +37,7 @@
     <div @click="getKeepDetails()" data-bs-toggle="modal" data-bs-target="#exampleModal"
       class="card bg-dark text-white border border-0 elevation-3 hoverable m-3 hover">
       <img :src="keep.img" class="card-img" alt="..." :title="keep.name" :aria-label="keep.name">
-      <div class="card-img-overlay d-flex align-items-end justify-content-between">
+      <div class="card-img-overlay d-flex align-items-end justify-content-between info">
         <div class="card-title fontbg fs-3 fw-bold text-lowercase">
           <span :title="keep.name" :aria-label="keep.name" class="title">{{ keep.name }}</span>
         </div>

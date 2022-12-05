@@ -36,7 +36,7 @@ CREATE TABLE
         isPrivate TINYINT DEFAULT 0,
         Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
-
+allter TABLE vaults COLUMN isPrivate boolean default false;
 CREATE TABLE
     IF NOT EXISTS vaultKeeps(
         id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'Primary key',

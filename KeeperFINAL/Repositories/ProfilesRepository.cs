@@ -22,11 +22,10 @@ public class ProfilesRepository : BaseRepository
   SELECT
   v.*,
   a.*
-  FROM
-  vaults v
+  FROM vaults v
   JOIN accounts a ON a.id = v.creatorId
   WHERE v.creatorId = @profileId
-  AND  v.isPrivate = false
+  and v.isPrivate != 1
   GROUP BY v.id
   ;";
     return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>

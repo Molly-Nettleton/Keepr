@@ -125,10 +125,6 @@ export default {
   object-fit: cover;
 }
 
-.pic {
-  background-color: #d2cedce8;
-}
-
 @media screen AND (max-width: 768px) {
   .cols {
     flex-direction: column;
